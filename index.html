@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Box</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        /* Header Styling */
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px;
+        background-color: #3f78e0;
+        color: white;
+    }
+
+    .header h1 {
+        font-size: 1.5em;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .header .icon {
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    /* Top Menu Styling */
+    .top-menu {
+        position: absolute;
+        background-color: #f2f2f2;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        right: 10px;
+        text-align: right;
+    }
+
+    .top-menu a {
+        display: block;
+        padding: 5px 10px;
+        text-decoration: none;
+        color: #3f78e0;
+    }
+
+    .top-menu a:hover {
+        background-color: #e3f3fe;
+    }
+
+    /* Status Section Styling */
+    .status-section {
+        text-align: center;
+        background-color: #e3f3fe;
+        padding: 20px;
+        margin: 10px;
+        border-radius: 10px;
+    }
+
+    .status-section .status-number {
+        font-size: 3em;
+        color: #28a745;
+        font-weight: bold;
+    }
+
+    .status-section .status-message {
+        font-size: 1.2em;
+        margin: 5px 0;
+    }
+
+    .status-section .status-total {
+        font-size: 1.1em;
+        margin-top: 10px;
+    }
+
+    /* History Section Styling */
+    .history-section {
+        background-color: #e3f3fe;
+        margin: 10px;
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .history-section h2 {
+        font-size: 1.2em;
+        text-align: center;
+        margin-bottom: 10px;
+        color: #3f78e0;
+    }
+
+    .history-section table {
+        width: 100%;
+        text-align: left;
+        border-collapse: collapse;
+    }
+
+    .history-section th,
+    .history-section td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    /* Chat Button Styling */
+    .chat-button {
+        display: block;
+        width: 100%;
+        background-color: #006d5b;
+        color: white;
+        padding: 15px;
+        text-align: center;
+        font-size: 1em;
+        margin: 15px 0;
+        border-radius: 5px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    /* Footer Icons Styling */
+    .footer-icons {
+        display: flex;
+        justify-content: space-around;
+        padding: 10px;
+        background-color: #f2f2f2;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+    }
+
+    .footer-icons span {
+        font-size: 24px;
+        color: #3f78e0;
+        cursor: pointer;
+    }
+
+    .footer-icons .active {
+        color: #006d5b;
+    }
+
+    /* Modal Styling */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 80%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .close {
+        float: right;
+        font-size: 1.5em;
+        cursor: pointer;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 8px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    button {
+        padding: 10px;
+        color: white;
+        background-color: #3f78e0;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+    <div class="header">
+        <h1>Doctor Box</h1>
+        <span class="icon" onclick="toggleTopMenu()">⋮</span>
+    </div>
+    <div id="topMenu" class="top-menu" style="display: none;">
+    <a href="#" onclick="showBookAppointmentModal()">Book Appointment</a>
+    <a href="#" onclick="showAboutModal()">About</a>
+</div>
+
+<div class="status-section">
+    <div class="status-number">2</div>
+    <div class="status-message">KEEP GOING!</div>
+    <div class="status-total">Total: 3</div>
+</div>
+
+<div class="history-section">
+    <h2>History</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Time</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>13:00</td>
+                <td>24/7</td>
+                <td>Medicine taken</td>
+            </tr>
+            <tr>
+                <td>7:00</td>
+                <td>24/7</td>
+                <td>Medicine taken</td>
+            </tr>
+            <tr>
+                <td>9:00</td>
+                <td>24/7</td>
+                <td>Medicine not taken</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<a href="#" class="chat-button" onclick="startChat()">Chat with Us</a>
+
+<div class="footer-icons">
+    <span onclick="highlightIcon(this)">🏠</span>
+    <span onclick="highlightIcon(this), showNotifications()">🔔</span>
+    <span onclick="highlightIcon(this), setAlarm()">⏰</span>
+    <span onclick="highlightIcon(this), changePhoneNumber()">📞</span>
+</div>
+
+<div id="notificationModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('notificationModal')">&times;</span>
+        <p>No notifications</p>
+    </div>
+</div>
+
+<div id="setAlarmModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('setAlarmModal')">&times;</span>
+        <h3>Set Alarm</h3>
+        <input type="time" id="alarmTime">
+        <input type="time" id="alarmTime">
+        <input type="time" id="alarmTime">
+        <button onclick="setAlarmTime()">Set Alarm</button>
+    </div>
+</div>
+
+<div id="changePhoneNumberModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('changePhoneNumberModal')">&times;</span>
+        <h3>Change Phone Number</h3>
+        <input type="tel" id="phoneNumber" placeholder="Enter new phone number">
+        <button onclick="confirmPhoneNumberChange()">Save Number</button>
+    </div>
+</div>
+
+<div id="bookAppointmentModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('bookAppointmentModal')">&times;</span>
+        <h3>Book Appointment</h3>
+        <input type="text" id="patientName" placeholder="Patient Name">
+        <textarea id="problemDescription" placeholder="Description of the problem"></textarea>
+        <input type="email" id="doctorEmail" placeholder="Doctor's email">
+        <input type="time" id="appointmentTime">
+        <button onclick="submitAppointment()">Submit</button>
+    </div>
+</div>
+
+<div id="aboutModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('aboutModal')">&times;</span>
+        <h3>About</h3>
+        <div class="about-content" style="max-height: 70vh; overflow-y: auto;">
+        <p>About Doctor Box
+            Our Mission
+            Doctor Box is a comprehensive healthcare management platform designed to revolutionize the patient experience and improve medical care. Our mission is to empower individuals to take an active role in managing their health and wellbeing by providing them with intuitive tools and personalized support.
+            Key Features
+            
+            Real-time updates on medical conditions and treatment progress
+            Seamless appointment booking and doctor communication
+            Access to complete medical history and records
+            Personalized health recommendations powered by AI analytics
+            
+            Data-Driven Approach
+            At the core of Doctor Box is a robust data analytics engine that collects and analyzes patient information. By identifying trends and patterns, the platform can provide tailored recommendations to both patients and healthcare providers, leading to more informed decision-making and better health outcomes.
+            Empowering Patients
+            Our mission is to empower patients by giving them the resources and insights they need to take an active role in their healthcare journey. Through Doctor Box, individuals can easily track their progress, communicate with their doctors, and access the information necessary to make informed decisions about their well-being.
+            Revolutionizing Healthcare
+            By integrating cutting-edge technologies, such as artificial intelligence and machine learning, Doctor Box is poised to continue evolving and expanding its capabilities. Our goal is to become the go-to platform for individuals seeking a seamless, personalized, and empowering healthcare experience.</p>
+    </div>
+    </div>
+</div>
+<div id="chatModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('chatModal')">&times;</span>
+        <h3>Chat with Us</h3>
+        <p>Hello, how can I assist you today?</p>
+        <input type="text" id="chatInput" placeholder="Type your message here">
+        <button onclick="sendChatMessage()">Send</button>
+    </div>
+</div>
+<script>
+    function toggleTopMenu() {
+        const topMenu = document.getElementById("topMenu");
+        topMenu.style.display = topMenu.style.display === "none" ? "block" : "none";
+    }
+
+    function showBookAppointmentModal() {
+        document.getElementById("bookAppointmentModal").style.display = "flex";
+        closeModal("topMenu");
+    }
+
+    function showAboutModal() {
+        document.getElementById("aboutModal").style.display = "flex";
+        closeModal("topMenu");
+    }
+
+    function showNotifications() {
+        document.getElementById("notificationModal").style.display = "flex";
+    }
+
+    function setAlarm() {
+        document.getElementById("setAlarmModal").style.display = "flex";
+    }
+
+    function changePhoneNumber() {
+        document.getElementById("changePhoneNumberModal").style.display = "flex";
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = "none";
+    }
+
+    function highlightIcon(element) {
+        const icons = document.querySelectorAll('.footer-icons span');
+        icons.forEach(icon => icon.classList.remove('active'));
+        element.classList.add('active');
+    }
+
+    function setAlarmTime() {
+        const alarmTime = document.getElementById("alarmTime").value;
+        if (alarmTime) {
+            alert(`Alarm set for ${alarmTime}`);
+            closeModal('setAlarmModal');
+        } else {
+            alert("Please select a time.");
+        }
+    }
+
+    function confirmPhoneNumberChange() {
+        const phoneNumber = document.getElementById("phoneNumber").value;
+        if (phoneNumber) {
+            alert(`Phone number updated to ${phoneNumber}`);
+            closeModal('changePhoneNumberModal');
+        } else {
+            alert("Please enter a valid phone number.");
+        }
+    }
+
+    function startChat() {
+        document.getElementById("chatModal").style.display = "flex";
+    }
+
+    function submitAppointment() {
+        const patientName = document.getElementById("patientName").value;
+        const problemDescription = document.getElementById("problemDescription").value;
+        const doctorEmail = document.getElementById("doctorEmail").value;
+        const appointmentTime = document.getElementById("appointmentTime").value;
+
+        console.log("Appointment booked:");
+        console.log("Patient Name:", patientName);
+        console.log("Problem Description:", problemDescription);
+        console.log("Doctor Email:", doctorEmail);
+        console.log("Appointment Time:", appointmentTime);
+
+        alert("Appointment booked successfully!");
+        closeModal("bookAppointmentModal");
+    }
+</script>
+</body>
+</html>
